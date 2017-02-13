@@ -25,12 +25,12 @@ app.get('/login', function(req, res) {
 
 app.post('/users', function(req, res) {
   var user = new User({
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password,
     password_confirmation: req.body.password_confirmation,
   });
 
-  console.log(user.password_confirmation);
   user.save(function(err) {
     if(err) {
       console.log(String(err));

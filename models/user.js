@@ -5,6 +5,13 @@ mongoose.connect('mongodb://localhost/fotos');
 var posibles_valores = ['H', 'F'];
 var email_match = [ /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i, "Coloca un email valido"];
 
+var password_validation = {
+  validator: function(p) {
+    return this.password_confirmation == p; // compara password_confirmation con p(que es el password ingresado)
+  },
+  message: "Las contraseñas no son igual"
+}
+
 //analogia
 //coleccion => define las tablas
 //documento => filas de la tabla
@@ -18,7 +25,8 @@ var user_schema = new mongoose.Schema({
   },
   password: {
     type:String,
-    minlength: [8, "El password tiene que tener mas de 8 caracteres"]
+    minlength: [8, "El password tiene que tener mas de 8 caracteres"],
+    validate: password_validation
   },
   age: {
     type: Number,
@@ -27,7 +35,7 @@ var user_schema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: 'El correo es obligatorio',
+    required: "El correo es obligatorio",
     match: email_match
   },
   date_of_birth: Date,
