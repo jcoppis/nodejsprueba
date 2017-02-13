@@ -1,7 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var User = require('./models/user').User; //usar siempre './' para carpeta actual
+var User = require('./models/user').User;
+var session = require('express-session');
+//usar siempre './' para carpeta actual
 
 app.use('/public', express.static('public'));
 // "/pepito" no existe, es una carpeta virtual para si bien hacer publicos los archivos de public no poder acceder por la ruta real, sino por medio de "/pepito"
@@ -10,16 +12,37 @@ app.use('/public', express.static('public'));
 app.use(bodyParser.json()); //para application/json
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.use(session({
+  secret: '123456asdfsdf',
+  resave: false,
+  saveUninitialized: false
+}));
+
 app.set('view engine', 'jade');
 
 app.get('/', function(req, res){
+  console.log(req.session.user_id);
   res.render('index');
 });
 
-app.get('/login', function(req, res) {
+app.get('/signup', function(req, res) {
   User.find(function(err, doc){
     console.log(doc);
-    res.render('login');
+    res.render('signup');
+  });
+});
+
+app.get('/login', function(req, res) {
+  res.render('login');
+});
+
+app.post('/sessions', function(req, res) {
+  User.findOne({
+    email: req.body.email,
+    password: req.body.password
+  }, function(err, user) {
+    req.session.user_id = user._id; //_id es el id que creo mongo
+    res.send('Hola mundo');
   });
 });
 
@@ -31,11 +54,13 @@ app.post('/users', function(req, res) {
     password_confirmation: req.body.password_confirmation,
   });
 
-  user.save(function(err) {
+  user.save().then(function(us) {
+    res.send('Guardamos el usuario exitosamente');
+  }, function(err) {
     if(err) {
       console.log(String(err));
+      res.send('No pudimos guardar la información');
     }
-    res.send("Guardamos tus datos");
   });
 });
 
