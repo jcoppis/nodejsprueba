@@ -1,21 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost/fotos');
-
-//analogia
-//coleccion => define las tablas
-var userSchemaJSON = {
-  email:String,
-  password:String
-};
-
-//crea el documento => filas de la tabla
-var user_schema = new mongoose.Schema(userSchemaJSON);
-
-var User = mongoose.model("User", user_schema);
+var User = require('./models/user').User; //usar siempre './' para carpeta actual
 
 app.use(express.static('public'));
 // "/pepito" no existe, es una carpeta virtual para si bien hacer publicos los archivos de public no poder acceder por la ruta real, sino por medio de "/pepito"
