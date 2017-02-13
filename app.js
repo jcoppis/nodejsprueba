@@ -5,11 +5,14 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/fotos');
 
+//analogia
+//coleccion => define las tablas
 var userSchemaJSON = {
   email:String,
   password:String
 };
 
+//crea el documento => filas de la tabla
 var user_schema = new mongoose.Schema(userSchemaJSON);
 
 var User = mongoose.model("User", user_schema);
@@ -28,7 +31,10 @@ app.get('/', function(req, res){
 });
 
 app.get('/login', function(req, res) {
-  res.render('login');
+  User.find(function(err, doc){
+    console.log(doc);
+    res.render('login');
+  });
 });
 
 app.post('/users', function(req, res) {
