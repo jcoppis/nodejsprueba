@@ -3,7 +3,7 @@ body {
 }
 
 .right-space {
-  margin-right: 1em;
+  margin-right: 1rem;
 }
 
 .remove-float {
@@ -11,7 +11,7 @@ body {
 }
 
 .top-space {
-  margin-top: 1em
+  margin-top: 1rem
 }
 
 .big-top-space {
@@ -30,13 +30,34 @@ body {
   color: white;
 }
 
+.img-container {
+  width: 700px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.img-container h1, .img-container h2 {
+  padding: 15px;
+  border-bottom: 1px solid #222;
+}
+
+.img-container p {
+  text-align: right;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+img {
+  max-width: 100%;
+}
+
 nav {
   text-align: right;
 }
 
 nav li {
   display: inline-block;
-  margin-right: 1em;
+  margin-right: 1rem;
 }
 
 nav li a {

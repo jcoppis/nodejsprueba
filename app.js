@@ -23,6 +23,10 @@ app.use(cookieSession({
   keys: ['llave-1', 'llave-2']
 }));
 
+
+app.use('/app', session_middleware);
+app.use('/app', router_app);
+
 app.set('view engine', 'jade');
 
 app.get('/', function(req, res){
@@ -68,8 +72,5 @@ app.post('/users', function(req, res) {
     }
   });
 });
-
-app.use('/app', session_middleware);
-app.use('/app', router_app);
 
 app.listen(27374);
