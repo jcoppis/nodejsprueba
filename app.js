@@ -1,11 +1,12 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var app = express();
 //usar siempre './' para carpeta actual
 var User = require('./models/user').User;
 var cookieSession = require('cookie-session');
 var router_app = require('./routes_app');
 var session_middleware = require('./middlewares/session');
+var formidable = require('express-formidable');
+
 var methodOverride= require('method-override');
 
 
@@ -13,8 +14,7 @@ app.use('/public', express.static('public'));
 // "/pepito" no existe, es una carpeta virtual para si bien hacer publicos los archivos de public no poder acceder por la ruta real, sino por medio de "/pepito"
 //app.use("/pepito", express.static('public'));
 
-app.use(bodyParser.json()); //para application/json
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(formidable({ keepExtension: true }));
 
 app.use(methodOverride('_method'));
 
@@ -43,8 +43,8 @@ app.get('/login', function(req, res) {
 
 app.post('/sessions', function(req, res) {
   User.findOne({
-    email: req.body.email,
-    password: req.body.password
+    email: req.fields.email,
+    password: req.fields.password
   }, function(err, user) {
     req.session.user_id = user._id; //_id es el id que creo mongo
     res.redirect('/app');
@@ -53,10 +53,10 @@ app.post('/sessions', function(req, res) {
 
 app.post('/users', function(req, res) {
   var user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-    password_confirmation: req.body.password_confirmation,
+    username: req.fields.username,
+    email: req.fields.email,
+    password: req.fields.password,
+    password_confirmation: req.fields.password_confirmation,
   });
 
   user.save().then(function(us) {

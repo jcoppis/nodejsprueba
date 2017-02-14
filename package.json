@@ -4,9 +4,9 @@
   "description": "hola mundo",
   "main": "app.js",
   "dependencies": {
-    "body-parser": "^1.16.1",
     "cookie-session": "^2.0.0-alpha.3",
     "express": "^4.14.1",
+    "express-formidable": "^1.0.0",
     "express-session": "^1.15.1",
     "jade": "^1.11.0",
     "mongoose": "^4.8.2"
