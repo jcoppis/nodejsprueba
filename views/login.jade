@@ -1,7 +1,7 @@
 extends ./layout.jade
 block contenido
   div(class="col-md-6 remove-float center-block big-top-space")
-    form(action="sessions", method="POST")
+    form(action="/sessions", method="POST")
       div(class="form-group")
         label(for="email") Email
         input(type="text" name="email", placeholder="Email" id="email" class="form-control")
