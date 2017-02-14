@@ -1,5 +1,9 @@
+body {
+  background-color: lightblue;
+}
+
 .right-space {
-  margin-right: 1rem;
+  margin-right: 1em;
 }
 
 .remove-float {
@@ -7,13 +11,50 @@
 }
 
 .top-space {
-  margin-top: 1rem
+  margin-top: 1em
 }
 
 .big-top-space {
   margin-top: 200px;
 }
 
-body {
-  background-color: lightblue;
+.large-padding {
+  padding: 10px 15px;
+}
+
+.black {
+  background-color: #222;
+}
+
+.white-text {
+  color: white;
+}
+
+nav {
+  text-align: right;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+nav li a {
+  color: white;
+}
+
+nav li a:hover {
+  color: white;
+}
+
+.white {
+  background-color: white;
+}
+
+.border {
+  border: solid 1px #eee;
+}
+
+.tr:nth-last-of-type(odd) {
+  background-color: #eee;
 }

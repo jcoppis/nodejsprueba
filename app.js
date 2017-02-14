@@ -3,9 +3,10 @@ var bodyParser = require('body-parser');
 var app = express();
 //usar siempre './' para carpeta actual
 var User = require('./models/user').User;
-var session = require('express-session');
+var cookieSession = require('cookie-session');
 var router_app = require('./routes_app');
 var session_middleware = require('./middlewares/session');
+var methodOverride= require('method-override');
 
 
 app.use('/public', express.static('public'));
@@ -15,10 +16,11 @@ app.use('/public', express.static('public'));
 app.use(bodyParser.json()); //para application/json
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(session({
-  secret: '123456asdfsdf',
-  resave: false,
-  saveUninitialized: false
+app.use(methodOverride('_method'));
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['llave-1', 'llave-2']
 }));
 
 app.set('view engine', 'jade');
