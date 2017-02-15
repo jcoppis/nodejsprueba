@@ -4,12 +4,13 @@
   "description": "hola mundo",
   "main": "app.js",
   "dependencies": {
-    "cookie-session": "^2.0.0-alpha.3",
+    "connect-redis": "^3.2.0",
     "express": "^4.14.1",
     "express-formidable": "^1.0.0",
     "express-session": "^1.15.1",
     "jade": "^1.11.0",
-    "mongoose": "^4.8.2"
+    "mongoose": "^4.8.2",
+    "socket.io": "^1.7.2"
   },
   "devDependencies": {},
   "scripts": {

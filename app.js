@@ -1,14 +1,27 @@
 var express = require('express');
-var app = express();
 //usar siempre './' para carpeta actual
 var User = require('./models/user').User;
-var cookieSession = require('cookie-session');
+var session = require('express-session');
 var router_app = require('./routes_app');
 var session_middleware = require('./middlewares/session');
 var formidable = require('express-formidable');
+var RedisStore =require('connect-redis')(session);
+var http = require('http')
+var realtime = require('./realtime');
 
 var methodOverride= require('method-override');
 
+var app = express();
+var server = http.createServer(app);
+
+var sessionMiddleware = session({
+  store: new RedisStore({}),
+  secret: 'super ultra secret'
+});
+
+realtime(server, sessionMiddleware);
+
+app.use(sessionMiddleware);
 
 app.use('/public', express.static('public'));
 // "/pepito" no existe, es una carpeta virtual para si bien hacer publicos los archivos de public no poder acceder por la ruta real, sino por medio de "/pepito"
@@ -17,12 +30,6 @@ app.use('/public', express.static('public'));
 app.use(formidable({ keepExtension: true }));
 
 app.use(methodOverride('_method'));
-
-app.use(cookieSession({
-  name: 'session',
-  keys: ['llave-1', 'llave-2']
-}));
-
 
 app.use('/app', session_middleware);
 app.use('/app', router_app);
@@ -73,4 +80,4 @@ app.post('/users', function(req, res) {
   });
 });
 
-app.listen(27374);
+server.listen(27374);
