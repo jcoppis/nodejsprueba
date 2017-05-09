@@ -9,7 +9,7 @@ var RedisStore =require('connect-redis')(session);
 var http = require('http')
 var realtime = require('./realtime');
 
-var methodOverride= require('method-override');
+var methodOverride = require('method-override');
 
 var app = express();
 var server = http.createServer(app);
@@ -50,6 +50,11 @@ app.get('/signup', function(req, res) {
 
 app.get('/login', function(req, res) {
   res.render('login');
+});
+
+app.get('/logout', function(req, res) {
+  req.session.user_id = undefined;
+  res.redirect('/');
 });
 
 app.post('/sessions', function(req, res) {

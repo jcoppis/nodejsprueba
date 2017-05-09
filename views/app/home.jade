@@ -1,9 +1,15 @@
 extends ../layout.jade
 block contenido
-  for imagen in imagenes
+  div(id="imagenes")
+    for imagen in imagenes
+      div(class="img-container")
+        a(href="/app/imagenes/#{imagen._id}")
+          h2 #{imagen.title}
+        img(src="/public/images/#{imagen._id}.#{imagen.extension}" class="main-img")
+          
+  script(id="image-template" type="text/x-handlebars-template")
     div(class="img-container")
-      h2 #{imagen.title}
-      img(src="/public/images/#{imagen._id}.#{imagen.extension}" class="main-img")
-      if(typeof(imagen.creator) != 'undefined')
-        p Por #{imagen.creator.email}
-  script(src="/public/js/client.js")
+      a(href="/app/imagenes/{{id}}")
+        h2 {{title}}
+      img(src="/public/images/{{id}}.{{extension}}" class="main-img")
+  script(type="application/javascript", src="/public/js/client.js")

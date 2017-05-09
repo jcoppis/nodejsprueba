@@ -5,7 +5,8 @@ html(lang="es")
     meta(charset="utf-8")
     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet")
     link(href="/public/css/app.css" rel="stylesheet")
-    script(src="/socket.io/socket.io.js")
+    script(type="application/javascript", src="/socket.io/socket.io.js")
+    script(type="application/javascript", src="/public/js/handlebars-v4.0.5.js")
   body
     nav(class="large-padding black white-text")
       ul
@@ -15,4 +16,6 @@ html(lang="es")
           a(href="/app/imagenes/new") Subir Imagen
         li
           a(href="/app/imagenes") Mis Imágenes
+        li
+          a(href="/logout") Logout
     block contenido
